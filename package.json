@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/ealvara6/binary-search-trees/issues"
   },
-  "homepage": "https://github.com/ealvara6/binary-search-trees#readme"
+  "homepage": "https://github.com/ealvara6/binary-search-trees#readme",
+  "dependencies": {
+    "n": "^9.1.0"
+  }
 }
