@@ -133,6 +133,31 @@ class Tree {
       func(root);
     }
   }
+
+  height(node) {
+    if(!node) return -1;
+
+    let leftHeight = this.height(node.left);
+    let rightHeight = this.height(node.right);
+
+    let height = Math.max(leftHeight, rightHeight) + 1;
+
+    return height;
+  }
+
+  depth(node, root = this.root) {
+    let counter = 0;
+    if(!node) return -1;
+    if(node === root) return 0;
+
+    if(node.data < root.data) {
+      counter += (this.depth(node, root.left) + 1);
+    } else {
+      counter += (this.depth(node, root.right) + 1);
+    }
+
+    return counter;
+  }
 }
 
 const log = (node) => {
@@ -153,5 +178,5 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 };
 
 const newTree = new Tree([1, 2, 3, 4, 5, 7, 8]);
-console.log(newTree.postorder(log));
+console.log(newTree.depth(newTree.find(5)));
 prettyPrint(newTree.root);
