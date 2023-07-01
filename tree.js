@@ -72,7 +72,7 @@ class Tree {
     queue.push(this.root);
     while(queue.length !== 0) {
       let currentNode = queue.shift();
-      arr.push(currentNode);
+      arr.push(currentNode.data);
       if (currentNode.left) queue.push(currentNode.left);
       if (currentNode.right) queue.push(currentNode.right);
     }
@@ -105,7 +105,7 @@ class Tree {
       let arr = [];
       if(!root) return arr;
       arr = arr.concat(this.inorder(func, root.left));
-      arr.push(root);
+      arr.push(root.data);
       arr = arr.concat(this.inorder(func, root.right));
 
       return arr;
@@ -123,7 +123,7 @@ class Tree {
       if(!root) return arr;
       arr = arr.concat(this.postorder(func, root.left));
       arr = arr.concat(this.postorder(func, root.right));
-      arr.push(root);
+      arr.push(root.data);
 
       return arr;
     } else {
@@ -158,6 +158,22 @@ class Tree {
 
     return counter;
   }
+
+  isBalanced(root = this.root) {
+    if(!root) return 0; 
+    
+    if((Math.abs(this.height(root.left) - this.height(root.right)) > 1)) {
+      return 'This tree is NOT balanced.';
+    } else {
+      this.isBalanced(root.left);
+      this.isBalanced(root.right);
+    }
+    return 'This tree is balanced.';
+  }
+
+  rebalance() {
+    this.root = this.buildTree(this.inorder());
+  }
 }
 
 const log = (node) => {
@@ -177,6 +193,68 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-const newTree = new Tree([1, 2, 3, 4, 5, 7, 8]);
-console.log(newTree.depth(newTree.find(5)));
-prettyPrint(newTree.root);
+const createRandomArr = () => {
+  let arr = [];
+  for (let i = 0; i < 10; i++) {
+    arr.push(Math.trunc(Math.random() * 100));
+  }
+  return arr;
+}
+
+const driver = () => {
+  console.log('CREATING A TREE WITH VALUES BETWEEN 1 AND 100');
+  const tree = new Tree(createRandomArr());
+
+  console.log('CHECKING IF TREE IS BALANCED');
+  console.log(tree.isBalanced());
+  
+  console.log(`DISPLAYING TREE IN LEVEL ORDER: `);
+  console.log(tree.levelOrder());
+
+  console.log('DISPLAYING TREE IN PRE ORDER: ');
+  console.log(tree.preorder());
+
+  console.log('DISPLAYING TREE IN IN ORDER: ');
+  console.log(tree.inorder());
+
+  console.log('DISPLAYING TREE IN POST ORDER: ');
+  console.log(tree.postorder());
+
+  console.log('VISUAL RESPRESENTAION OF TREE');
+  prettyPrint(tree.root);
+
+
+  console.log('INSERTING VALUES GREATER THAN 100');
+
+  tree.insert(102);
+  tree.insert(130);
+  tree.insert(152);
+  tree.insert(190);
+
+
+  console.log('CHECKING IF TREE IS BALANCED');
+  console.log(tree.isBalanced());
+
+  console.log('REBALANCING TREE');
+  tree.rebalance();
+
+  console.log('CHECKING IF TREE IS BALANCED');
+  console.log(tree.isBalanced());
+  
+  console.log(`DISPLAYING TREE IN LEVEL ORDER: `);
+  console.log(tree.levelOrder());
+
+  console.log('DISPLAYING TREE IN PRE ORDER: ');
+  console.log(tree.preorder());
+
+  console.log('DISPLAYING TREE IN IN ORDER: ');
+  console.log(tree.inorder());
+
+  console.log('DISPLAYING TREE IN POST ORDER: ');
+  console.log(tree.postorder());
+
+  console.log('VISUAL REPRESENATION OF NEW TREE');
+  prettyPrint(tree.root);
+}
+
+driver();
