@@ -20,5 +20,10 @@
   "homepage": "https://github.com/ealvara6/binary-search-trees#readme",
   "dependencies": {
     "n": "^9.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.44.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5"
   }
 }

@@ -57,6 +57,13 @@ class Tree {
       return root;
     }
   }
+
+  find(value, root = this.root) {
+    if (!root) return null;
+    if (value === root.data) return root;
+    if (value < root.data) return this.find(value, root.left);
+    if (value > root.data) return this.find(value, root.right);
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -73,4 +80,5 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 };
 
 const newTree = new Tree([1, 2, 3, 4, 5, 7, 8]);
-prettyPrint(newTree.root);
+console.log(newTree.find(10));
+// prettyPrint(newTree.root);
