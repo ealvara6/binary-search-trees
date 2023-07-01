@@ -64,6 +64,25 @@ class Tree {
     if (value < root.data) return this.find(value, root.left);
     if (value > root.data) return this.find(value, root.right);
   }
+
+  levelOrder(func) {
+    const arr = [];
+    const queue = [];
+    if (!this.root) return;
+    queue.push(this.root);
+    while(queue.length !== 0) {
+      let currentNode = queue.shift();
+      arr.push(currentNode);
+      if (currentNode.left) queue.push(currentNode.left);
+      if (currentNode.right) queue.push(currentNode.right);
+    }
+    if(func) {
+      arr.forEach((node) => {
+        func(node);
+      });
+    }
+    return arr;
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -80,5 +99,5 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 };
 
 const newTree = new Tree([1, 2, 3, 4, 5, 7, 8]);
-console.log(newTree.find(10));
-// prettyPrint(newTree.root);
+// console.log(newTree.levelOrder());
+prettyPrint(newTree.root);
